@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Neural-Blockchain Stock Prediction System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+</head>
+<body>
+  <div class="gradient-bg">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+
+      <div class="glass-container">
+          <div class="analysis-container">
+            <div class="header">
+                <div class="logo-title">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+                    <div class="title-container">
+                        <h1>Nebula</h1>
+                        <h2>Neural-Blockchain Stock Prediction System</h2>
+                    </div>
+                </div>
+            </div>
+              
+              <div class="input-section glass">
+                  <select id="categorySelect">
+                      <option value="">Select Category</option>
+                      <option value="tech">Technology</option>
+                      <option value="finance">Finance</option>
+                      <option value="health">Healthcare</option>
+                      <option value="retail">Retail</option>
+                      <option value="energy">Energy</option>
+                  </select>
+                  <select id="stockSelect"></select>
+                  <input type="text" id="customSymbol" placeholder="Or enter custom symbol">
+                  <button onclick="analyzeStock()">Analyze</button>
+                  <button onclick="exportPDF()" class="export-btn">Export PDF</button>
+                  <button onclick="toggleInfo()" class="info-btn">ℹ️ Help & Info</button>
+                  <button onclick="togglePortfolio()" class="portfolio-btn">📊 Portfolio</button>
+              </div>
+
+              <div class="metrics-layout">
+                  <div class="metrics-column">
+                      <div class="metric-card glass">
+                          <h4>Current Price</h4>
+                          <div id="currentPrice"></div>
+                      </div>
+                      
+                      <div class="chart-container glass">
+                          <canvas id="priceChart"></canvas>
+                      </div>
+                      
+                      <div class="metric-card glass">
+                          <h4>Technical Indicators</h4>
+                          <div id="indicators"></div>
+                      </div>
+                      
+                      <div class="metric-card glass">
+                          <h4>Blockchain Verification</h4>
+                          <div id="blockchain"></div>
+                      </div>
+                  </div>
+                  
+                  <div class="metrics-column">
+                      <div class="metric-card glass">
+                          <h4>Predictions</h4>
+                          <div id="predictions"></div>
+                      </div>
+                      
+                      <div class="metric-card glass">
+                          <h4>Market Sentiment</h4>
+                          <div id="sentiment" class="sentiment-container">
+                              <div class="sentiment-header"></div>
+                              <div class="sentiment-score"></div>
+                              <div class="news-headlines"></div>
+                          </div>
+                      </div>
+                  </div>
+                  
+              </div>
+          </div>
+      </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Understanding Stock Analysis & Predictions</h2>
+    
+            <div class="info-section">
+                <h3>Technical Indicators</h3>
+                <h4>RSI (Relative Strength Index)</h4>
+                <p>A momentum oscillator that measures the speed and magnitude of price movements:</p>
+                <ul>
+                    <li>Range: 0 to 100</li>
+                    <li>Above 70: Potentially overbought condition</li>
+                    <li>Below 30: Potentially oversold condition</li>
+                    <li>50: Neutral level, used as centerline</li>
+                </ul>
+    
+                <h4>MACD (Moving Average Convergence Divergence)</h4>
+                <p>Trend-following momentum indicator showing relationship between moving averages:</p>
+                <ul>
+                    <li>Positive MACD: Short-term momentum is upward</li>
+                    <li>Negative MACD: Short-term momentum is downward</li>
+                    <li>MACD crossing signal line: Potential trend change</li>
+                </ul>
+            </div>
+    
+            <div class="info-section">
+                <h3>Price Predictions</h3>
+                <p>Our ML model generates predictions using multiple data points:</p>
+                <ul>
+                    <li><strong>Next Day:</strong> Short-term prediction based on recent price action and indicators</li>
+                    <li><strong>Next Week:</strong> Medium-term forecast incorporating broader market trends</li>
+                    <li><strong>Next Month:</strong> Long-term projection using historical patterns and technical analysis</li>
+                </ul>
+                <p>Note: All predictions are probability-based estimates and should not be used as sole trading decisions.</p>
+            </div>
+    
+            <div class="info-section">
+                <h3>Blockchain Verification</h3>
+                <p>Each prediction is secured using blockchain-style verification:</p>
+                <ul>
+                    <li>Unique hash generated for each prediction</li>
+                    <li>Hash includes timestamp, stock symbol, and prediction values</li>
+                    <li>Allows verification of when predictions were made</li>
+                    <li>Ensures prediction integrity and transparency</li>
+                </ul>
+            </div>
+    
+            <div class="info-section">
+                <h3>Charts and Visualization</h3>
+                <p>Interactive price chart showing:</p>
+                <ul>
+                    <li>Historical price movements</li>
+                    <li>30-day trending pattern</li>
+                    <li>Support and resistance levels</li>
+                    <li>Daily price action</li>
+                </ul>
+            </div>
+    
+            <div class="info-section">
+                <h3>PDF Reports</h3>
+                <p>Comprehensive analysis reports including:</p>
+                <ul>
+                    <li>Current price and predictions</li>
+                    <li>Technical indicator readings</li>
+                    <li>Price charts and trends</li>
+                    <li>Verification data</li>
+                    <li>Timestamp of analysis</li>
+                </ul>
+            </div>
+    
+            <div class="info-section">
+                <h3>Important Disclaimer</h3>
+                <p>This tool is for educational and research purposes only. Always conduct your own research and consult with financial advisors before making investment decisions.</p>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+</html>

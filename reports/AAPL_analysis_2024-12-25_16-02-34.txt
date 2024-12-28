@@ -1,0 +1,31 @@
+=================================================
+        STOCK MARKET PREDICTION ANALYSIS          
+=================================================
+
+Analysis Date: 2024-12-25 16:02:34
+Stock Symbol: AAPL
+
+PRICE ANALYSIS
+-------------------------------------------------
+Current Price: $258.20
+Predicted Next Price: $253.84
+Predicted Change: -1.69%
+
+TECHNICAL INDICATORS
+-------------------------------------------------
+RSI (14-day): 76.18
+20-day Moving Average: $246.29
+
+VERIFICATION
+-------------------------------------------------
+Prediction Hash: 913ee1403145ccb8b86e3d00282e0994288779d38392db79a6e9ac35bb184593
+
+INTERPRETATION
+-------------------------------------------------
+RSI Status: Overbought
+Price is Above 20-day Moving Average
+
+=================================================
+DISCLAIMER: This is for educational purposes only.
+Do not use this for actual trading decisions.
+=================================================
